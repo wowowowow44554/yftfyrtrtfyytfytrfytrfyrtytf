@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Panel</title>
+<base href="./">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; cursor: pointer; }
+    img { width: 100%; height: 100%; object-fit: cover; display: block; }
+</style>
+</head>
+<body>
+<img src="assets/popup.gif" alt="Panel GIF">
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const ip = params.get('ip') || 'Unknown';
+
+    function randomPos(size, max) {
+        return Math.max(0, Math.floor(Math.random() * (max - size)));
+    }
+
+    function spawnPopup() {
+        const w = 900;
+        const h = 400;
+        window.open(
+            'popup.html?ip=' + encodeURIComponent(ip) + '&r=' + Date.now() + Math.random(),
+            'Zeta_' + Date.now() + '_' + Math.random(),
+            'width=' + w + ',height=' + h + ',left=' + randomPos(w, screen.width) + ',top=' + randomPos(h, screen.height)
+        );
+    }
+
+    document.addEventListener('mousedown', spawnPopup);
+    document.addEventListener('touchstart', spawnPopup, { passive: true });
+</script>
+</body>
+</html>
